@@ -1,0 +1,110 @@
+<?php
+$host = 'localhost'; // Adresse du serveur
+$db = 'bibliotheque'; // Nom de la base de données
+$user = 'votre_utilisateur'; // Nom d'utilisateur
+$pass = 'votre_mot_de_passe'; // Mot de passe
+
+try {
+    $pdo = new PDO("mysql:host=$host;dbname=$db;charset=utf8", $user, $pass);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    echo "Erreur de connexion : " . $e->getMessage();
+}
+?>
+//recuperation des données dans la base de données
+
+<?php
+$sql = "SELECT nom, email, telephone, organisation, depart, destination, date_depart, date_retour FROM gest_billets";
+$stmt = $pdo->prepare($sql);
+$stmt->execute();
+$clients = $stmt->fetchAll(PDO::FETCH_ASSOC);
+?>
+//affichage
+
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page d'Administration</title>
+</head>
+
+<body>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #007BFF;
+            color: white;
+        }
+    </style>
+    <div class="container">
+        <h1>Administration des Informations Clients</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Email</th>
+                    <th>Téléphone</th>
+                    <th>Organisation</th>
+                    <th>Départ</th>
+                    <th>Destination</th>
+                    <th>Date de Départ</th>
+                    <th>Date de Retour</th>
+                </tr>
+            </thead>
+            <tbody id="clientData">
+                <?php foreach ($clients as $client): ?>
+                    <tr>
+                        <td><?php echo htmlspecialchars($client['nom']); ?></td>
+                        <td><?php echo htmlspecialchars($client['email']); ?></td>
+                        <td><?php echo htmlspecialchars($client['telephone']); ?></td>
+                        <td><?php echo htmlspecialchars($client['organisation']); ?></td>
+                        <td><?php echo htmlspecialchars($client['depart']); ?></td>
+                        <td><?php echo htmlspecialchars($client['destination']); ?></td>
+                        <td><?php echo htmlspecialchars($client['date_depart']); ?></td>
+                        <td><?php echo htmlspecialchars($client['date_retour']); ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>

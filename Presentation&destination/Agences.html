@@ -1,0 +1,317 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+<style>
+ /* Style global */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+/* Header */
+header {
+    background-color: #0b224d;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+header .logo a {
+    font-size: 24px;
+    color: #29d9d5;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+header .logo a span {
+    color: #fff;
+}
+
+header .menu {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+    margin: 0;
+    padding: 0;
+}
+
+header .menu li a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+header .menu li a:hover {
+    color: #29d9d5;
+}
+
+/* Bouton détails */
+.btn-details {
+    color: #fff;
+    background-color: #29d9d5;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 8px 15px;
+    border-radius: 5px;
+    border: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-details:hover {
+    background-color: #fff;
+    color: #29d9d5;
+    border: 2px solid #29d9d5;
+}
+
+/* Galerie des agences */
+.gallery {
+    margin: 100px 20px 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+}
+
+/* Style des items */
+.item {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+    width: calc(33.333% - 20px); /* Trois items par ligne */
+    max-width: 300px;
+}
+
+.item:hover {
+    transform: translateY(-5px) scale(1.03);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.item img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    transition: transform 0.3s;
+}
+
+.item:hover img {
+    transform: scale(1.1);
+}
+
+/* Info */
+.info {
+    padding: 15px;
+    text-align: center;
+    background-color: #fff;
+    border-top: 3px solid #29d9d5;
+}
+
+.info p {
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #0b224d;
+    font-size: 18px;
+}
+
+.info i, .info b {
+    display: block;
+    margin: 5px 0;
+    color: #333;
+}
+
+/* Lien de réservation */
+.btn-reservation {
+    display: inline-block;
+    text-decoration: none;
+    color: #fff;
+    background-color: #29d9d5;
+    padding: 8px 15px;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 5px;
+    margin-top: 10px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-reservation:hover {
+    background-color: #0b224d;
+    color: #fff;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .gallery {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .item {
+        width: 100%;
+        max-width: 90%;
+    }
+
+    header .menu {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .btn-details {
+        font-size: 12px;
+        padding: 6px 10px;
+    }
+}
+
+
+    
+</style>
+</head>
+<body>
+   <!-- Header -->
+   <header>
+    <div class="logo">
+        <a href="Agences.html"><span>Nos</span> Agences</a>
+    </div>
+    <ul class="menu">
+        <div class="accueil"><li><a href="../accueil/accueil.php">Accueil</a></li></div>
+        <div class="Destination"><li><a href="Agences.html">Destination & présentation</a></li></div>
+        <div class="contact"><li><a href="../accueil/conn.php">Contactez-nous</a></li></div>
+    </ul>
+    <a href="../accueil/details.php" class="btn-details">Plus de détails</a>
+</header>
+
+<!-- Galerie des agences -->
+<div class="gallery">
+
+    <!-- GLOBAL VOYAGE -->
+    <div class="item" onclick="showInfo(this)">
+        <img src="../images/global.jpg" alt="Global voyage">
+        <p class="info"><u><b>GLOBAL VOYAGE</u></b></p>
+        <i><u>Destination :</u></i> <b>Yaoundé</b><br>
+        <i>Départ :</i> Douala agence : Mboppi<br>
+        <i><u>Destination :</u></i> <b>Ouest</b><br>
+        <i>Départ :</i> Douala agence : Bepanda<br>
+        ouvert du Lundi à Dimanche de 06h à 18H<br>
+        Pour plus d'Informations, contacter <b>698446383</b><br>
+        <a href="../autreConnexionClient/inscriptionClient.php" class="btn-reservation">Réserver ici</a>
+    </div>
+
+    <!-- TRESOR VOYAGE -->
+    <div class="item" onclick="showInfo(this)">
+        <img src="../images/tresor1.jpg" alt="Trésor Voyage">
+        <p class="info"><u><b>TRESOR VOYAGE</u></b></p>
+        <i><u>Destination :</u></i> <b>Yaoundé</b><br>
+        <i>Départ :</i> Douala agence : Bonamoussadi<br>
+        <i><u>Destination :</u></i> <b>Est</b><br>
+        <i>Départ :</i> Yaoundé agence : Lembe<br>
+        ouvert du Lundi à Dimanche de 06h à 12H<br>
+        Pour plus d'Informations, contacter <b>694197223</b><br>
+        <a href="../autreConnexionClient/inscriptionClient.php" class="btn-reservation">Réserver ici</a>
+    </div>
+
+    <!-- EASE TRAVEL -->
+    <div class="item" onclick="showInfo(this)">
+        <img src="../images/easy.jpg" alt="Ease Travel">
+        <p class="info"><u><b>EASE TRAVEL</u></b></p>
+        <i><u>Destination :</u></i> <b>Yaoundé</b><br>
+        <i>Départ :</i> Douala agence : Bonamoussadi<br>
+        <i><u>Destination :</u></i> <b>Nord</b><br>
+        <i>Départ :</i> Yaoundé agence : Obili<br>
+        ouvert du Mardi à Dimanche de 06h à 23H<br>
+        Pour plus d'Informations, contacter <b>694197223</b><br>
+        <a href="../autreConnexionClient/inscriptionClient.php" class="btn-reservation">Réserver ici</a>
+    </div>
+
+    <!-- TOURISTIQUE EXPRESS -->
+    <div class="item" onclick="showInfo(this)">
+        <img src="../images/touristique.jpg" alt="Touristique Express">
+        <p class="info"><u><b>TOURISTIQUE EXPRESS SA</u></b></p>
+        <i><u>Destination :</u></i> <b>Sud</b><br>
+        <i>Départ :</i> Bafoussam agence : Tamdja<br>
+        <i><u>Destination :</u></i> <b>Ouest</b><br>
+        <i>Départ :</i> Yaoundé agence : Lembe<br>
+        ouvert du Lundi à Dimanche de 06h à 12H<br>
+        Pour plus d'Informations, contacter <b>694197223</b><br>
+        <a href="../autreConnexionClient/inscriptionClient.php" class="btn-reservation">Réserver ici</a>
+    </div>
+
+    <!-- AIGLE VOYAGE -->
+    <div class="item" onclick="showInfo(this)">
+        <img src="../images/aigle.png" alt="Aigle Voyage">
+        <p class="info"><u><b>AIGLE VOYAGE</u></b></p>
+        <i><u>Destination :</u></i> <b>Nkongsamba</b><br>
+        <i>Départ :</i> Yaoundé agence : Koumassi<br>
+        <i><u>Destination :</u></i> <b>Douala</b><br>
+        <i>Départ :</i> Sud agence : Lobe<br>
+        ouvert du Lundi à Dimanche de 06h à 00H<br>
+        Pour plus d'Informations, contacter <b>694197223</b><br>
+        <a href="../autreConnexionClient/inscriptionClient.php" class="btn-reservation">Réserver ici</a>
+    </div>
+
+    <!-- JULLY VOYAGE -->
+    <div class="item" onclick="showInfo(this)">
+        <img src="../images/jully.jpg" alt="Jully Voyage">
+        <p class="info"><u><b>JULLY VOYAGE</u></b></p>
+        <i><u>Destination :</u></i> <b>Yaoundé</b><br>
+        <i>Départ :</i> Douala agence : Bonamoussadi<br>
+        <i><u>Destination :</u></i> <b>Ouest</b><br>
+        <i>Départ :</i> Yaoundé agence : Lembe<br>
+        ouvert du Lundi à Dimanche de 06h à 22H<br>
+        Pour plus d'Informations, contacter <b>694197223</b><br>
+        <a href="../autreConnexionClient/inscriptionClient.php" class="btn-reservation">Réserver ici</a>
+    </div>
+
+    <!-- UNITED EXPRESS -->
+    <div class="item" onclick="showInfo(this)">
+        <img src="../images/united.jpg" alt="United Express">
+        <p class="info"><u><b>UNITED EXPRESS</u></b></p>
+        <i><u>Destination :</u></i> <b>Yaoundé</b><br>
+        <i>Départ :</i> Douala agence : Bonamoussadi<br>
+        <i><u>Destination :</u></i> <b>Est</b><br>
+        <i>Départ :</i> Yaoundé agence : Lembe<br>
+        ouvert du Lundi à Dimanche de 07h à 15H<br>
+        Pour plus d'Informations, contacter <b>694124697</b><br>
+        <a href="../autreConnexionClient/inscriptionClient.php" class="btn-reservation">Réserver ici</a>
+    </div>
+
+    <!-- PAPA NGASSI -->
+    <div class="item" onclick="showInfo(this)">
+        <img src="../images/papaNgassi.jpg" alt="Papa Ngassi">
+        <p class="info"><u><b>PAPA NGASSI</u></b></p>
+        <i><u>Destination :</u></i> <b>Est</b><br>
+        <i>Départ :</i> Douala agence : Bepanda<br>
+        <i><u>Destination :</u></i> <b>Nord</b><br>
+        <i>Départ :</i> Yaoundé agence : Lembe<br>
+        ouvert du Lundi à Dimanche de 06h à 18H<br>
+        Pour plus d'Informations, contacter <b>694197223</b><br>
+        <a href="../autreConnexionClient/inscriptionClient.php" class="btn-reservation">Réserver ici</a>
+    </div>
+
+</div>
+
+    <script src="script.js">
+    </script>
+</body>
+</html> 

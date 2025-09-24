@@ -1,0 +1,374 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire de Voyage</title>
+</head>
+
+<body>
+    <div class="container">
+        <form id="voyageForm" action="traitementFormulaire.php" method="POST">
+            <h2>Réservez votre Voyage</h2>
+            <p>Veuillez remplir les informations ci-dessous pour compléter votre réservation.</p>
+    
+            <!-- Informations personnelles -->
+            <div class="input">
+                <label for="nom">Nom complet</label>
+                <input type="text" name="nom" id="nom" placeholder="Entrer votre nom complet" required>
+            </div>
+            <div class="input">
+                <label for="email">Adresse email</label>
+                <input type="email" name="email" id="email" placeholder="exemple@domaine.com" required>
+            </div>
+            <div class="input">
+                <label for="tel">Numéro de téléphone</label>
+                <input type="tel" name="tel" id="tel" placeholder="Numéro de téléphone" required>
+            </div>
+            <div class="input">
+                <label for="organisation">Agence</label>
+                <!-- <input type="text" name="organisation" id="organisation"  required> -->
+                <select name="organisation" id="organisation" placeholder="Nom de l'agence" required>
+                    <option value="">Sélectionnez une argence</option>
+                    <option value="generale">generale</option>
+                    <option value="papa-ngasi">papa-ngasi</option>
+                    <option value="tresor">tresor</option>
+                    <option value="global">global</option>
+                    <option value="fitness">ease travel</option>
+                </select>
+            </div>
+    
+            <!-- Détails du voyage -->
+            <h3>Détails du Voyage</h3>
+            <div class="input">
+                <label for="depart">Lieu de départ</label>
+                <select name="depart" id="depart" required>
+                    <option value="">Sélectionnez un lieu</option>
+                    <option value="Yaounde">Yaoundé</option>
+                    <option value="Bafoussam">Bafoussam</option>
+                    <option value="Ebolowa">Ebolowa</option>
+                    <option value="Kribi">Kribi</option>
+                    <option value="Maroua">Maroua</option>
+                </select>
+            </div>
+            <div class="input">
+                <label for="destination">Destination</label>
+                <select name="destination" id="destination" required>
+                    <option value="">Sélectionnez une destination</option>
+                    <option value="Douala">Douala</option>
+                    <option value="Limbe">Limbe</option>
+                    <option value="Buea">Buea</option>
+                    <option value="Garoua">Garoua</option>
+                </select>
+            </div>
+            <div class="input">
+                <label for="dateDepart">Date de départ</label>
+                <input type="date" name="dateDepart" id="dateDepart" required>
+            </div>
+            <div class="input">
+                <label for="service">Classe de service</label>
+                <select name="services" id="service" required>
+                    <option value="">Sélectionnez une classe</option>
+                    <option value="VIP">VIP</option>
+                    <option value="Classique">Classique</option>
+                </select>
+            </div>
+    
+            <!-- Choix des places -->
+            <h3>Choisissez votre place</h3>
+            <div class="input">
+                <label for="place">Numéro de place</label>
+                <select name="place" id="place" required>
+                    <option value="">Sélectionnez une place</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                    <option value="13">13</option>
+                    <option value="14">14</option>
+                    <option value="15">15</option>
+                    <option value="16">16</option>
+                    <option value="17">17</option>
+                    <option value="18">18</option>
+                    <option value="19">19</option>
+                    <option value="20">20</option>
+                </select>
+            </div>
+    
+            <!-- Boutons -->
+            <div class="buttons">
+                <button type="reset" class="btn-reset">Réinitialiser</button>
+                <button type="submit" class="btn-submit">Réserver</button>
+            </div>
+        </form>
+    
+        <div id="message"></div> Zone pour afficher les messages
+    </div>
+    
+    <script>
+    // Fonction pour réinitialiser le formulaire
+function resetForm() {
+    // Réinitialise tous les champs du formulaire
+    document.getElementById("voyageForm").reset();
+    console.log("Formulaire réinitialisé.");
+}
+
+// Fonction pour valider les données du formulaire
+function validateForm() {
+    const nom = document.getElementById('nom').value;
+    const email = document.getElementById('email').value;
+    const tel = document.getElementById('tel').value;
+
+    let errors = [];
+
+    // Validation du nom
+    if (!nom) {
+        errors.push("Le nom est requis.");
+    }
+
+    // Validation de l'email
+    if (!email.includes('@')) {
+        errors.push("L'adresse email est invalide.");
+    }
+
+    // Validation du numéro de téléphone
+    if (!tel.match(/^\d{9}$/)) {
+        errors.push("Le numéro de téléphone doit contenir 9 chiffres.");
+    }
+
+    return errors;
+}
+
+// Fonction pour soumettre le formulaire via XMLHttpRequest ou Fetch
+function submitForm(event) {
+    event.preventDefault(); // Empêche le rechargement automatique de la page
+
+    const errors = validateForm(); // Vérifie les erreurs dans le formulaire
+    const messageDiv = document.getElementById('message');
+    messageDiv.innerHTML = ''; // Réinitialise la zone de message
+
+    // Affichage des erreurs si elles existent
+    if (errors.length > 0) {
+        errors.forEach(error => {
+            messageDiv.innerHTML += `<p style="color: red;">${error}</p>`;
+        });
+        return; // Ne soumet pas le formulaire si des erreurs existent
+    }
+
+    // Si pas d'erreurs, préparation pour l'envoi des données
+    const formData = new FormData(document.getElementById('voyageForm'));
+
+    fetch('traitementFormulaire.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.text())
+    .then(data => {
+        messageDiv.innerHTML = `<p style="color: green;">${data}</p>`;
+        console.log("Formulaire soumis avec succès :", data);
+    })
+    .catch(error => {
+        console.error("Erreur lors de la soumission :", error);
+        messageDiv.innerHTML = `<p style="color: red;">Erreur lors de la soumission. Veuillez réessayer.</p>`;
+    });
+}
+
+// Fonction pour mettre à jour les places réservées
+async function updateReservedPlaces() {
+    const dateDepart = document.getElementById('dateDepart').value;
+    const destination = document.getElementById('destination').value;
+
+    // Vérifie que la date de départ et la destination sont renseignées
+    if (dateDepart && destination) {
+        try {
+            // Requête pour obtenir les places déjà réservées
+            const response = await fetch('getReservedPlaces.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: `dateDepart=${encodeURIComponent(dateDepart)}&destination=${encodeURIComponent(destination)}`
+            });
+
+            if (response.ok) {
+                const reservedPlaces = await response.json();
+                const placeSelect = document.getElementById('place');
+
+                // Réactiver toutes les options avant de désactiver les réservées
+                Array.from(placeSelect.options).forEach(option => {
+                    option.disabled = false; // Active toutes les options
+                });
+
+                // Désactiver les places déjà réservées
+                reservedPlaces.forEach(place => {
+                    const option = document.querySelector(`#place option[value="${place}"]`);
+                    if (option) {
+                        option.disabled = true; // Désactive la place réservée
+                    }
+                });
+            } else {
+                console.error("Erreur lors de la récupération des places : ", response.statusText);
+ //cette ligne affichais une alert qui derangeait j'ai dût commenté  alert("Erreur lors de la récupération des places. Veuillez réessayer.");
+            }
+        } catch (error) {
+            console.error("Erreur lors de la requête des places réservées :", error.message);
+            alert("Erreur lors de la mise à jour des places réservées : " + error.message);
+        }
+    }
+}
+
+// Ajout des écouteurs d'événements
+document.getElementById('voyageForm').addEventListener('submit', submitForm);
+document.getElementById('dateDepart').addEventListener('change', updateReservedPlaces);
+document.getElementById('destination').addEventListener('change', updateReservedPlaces);
+
+
+    </script>
+    
+
+    <style>
+  /* Styles communs (inchangés) */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: #333;
+}
+
+.container {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px 30px;
+    max-width: 400px;
+    width: 90%; /* Adapte la largeur à l'écran pour les petits appareils */
+    text-align: center;
+}
+
+h2 {
+    color: #0b224d;
+    margin-bottom: 15px;
+}
+
+h3 {
+    margin: 20px 0 10px;
+    color: #555;
+    font-size: 16px;
+    text-transform: uppercase;
+}
+
+p {
+    margin-bottom: 20px;
+    font-size: 14px;
+    color: #666;
+}
+
+/* Champs d'entrée */
+.input {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+label {
+    font-weight: bold;
+    color: #333;
+    display: block;
+    margin-bottom: 5px;
+}
+
+input, select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+input:focus, select:focus {
+    border-color: #29d9d5;
+}
+
+/* Boutons */
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+button {
+    width: 48%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.btn-reset {
+    background-color: #ddd;
+    color: #333;
+}
+
+.btn-reset:hover {
+    background-color: #bbb;
+    color: #fff;
+}
+
+.btn-submit {
+    background-color: #29d9d5;
+    color: #fff;
+}
+
+.btn-submit:hover {
+    background-color: #0b224d;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px 20px;
+    }
+
+    h2, h3 {
+        font-size: 18px;
+    }
+
+    p {
+        font-size: 13px;
+    }
+
+    .buttons {
+        flex-direction: column; /* Empile les boutons verticalement sur petits écrans */
+        gap: 10px;
+    }
+
+    button {
+        width: 100%; /* Les boutons prennent toute la largeur */
+    }
+}
+   
+    </style>
+</body>
+
+</html>

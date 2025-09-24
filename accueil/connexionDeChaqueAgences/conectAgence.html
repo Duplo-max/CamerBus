@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion Agence</title>
+    <style>
+        /* Corps de la page */
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(45deg, #29d9d5, #0b224d);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Animations des bulles */
+        .bubble {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.4;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0); opacity: 0.5; }
+            50% { transform: translateY(-20px); opacity: 0.8; }
+            100% { transform: translateY(0); opacity: 0.5; }
+        }
+
+        .bubble:nth-child(1) { background: #ffffff; width: 80px; height: 80px; left: 5%; animation-delay: 0s; }
+        .bubble:nth-child(2) { background: #ffffff; width: 100px; height: 100px; left: 25%; animation-delay: 1s; }
+        .bubble:nth-child(3) { background: #ffffff; width: 60px; height: 60px; left: 55%; animation-delay: 2s; }
+        .bubble:nth-child(4) { background: #ffffff; width: 90px; height: 90px; left: 75%; animation-delay: 3s; }
+        .bubble:nth-child(5) { background: #ffffff; width: 120px; height: 120px; left: 85%; animation-delay: 4s; }
+
+        /* Conteneur principal */
+        .container {
+            background: white;
+            padding: 30px 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: #0b224d;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        input:focus {
+            border-color: #29d9d5;
+            box-shadow: 0 0 5px rgba(41, 217, 213, 0.5);
+        }
+
+        .btn {
+            background-color: #29d9d5;
+            color: white;
+            border: none;
+            padding: 12px 18px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #0b224d;
+            transform: scale(1.05);
+        }
+
+        .link {
+            margin-top: 15px;
+            font-size: 14px;
+            display: block;
+            color: #0b224d;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .link:hover {
+            color: #29d9d5;
+        }
+
+        .error {
+            color: red;
+            font-size: 13px;
+        }
+        .welcome{
+            color: white;
+            display: flex;
+            position: fixed;
+            top: 0;
+            left: 0;
+                   
+
+        }
+        .welcome:hover{
+            color: #29d9d5;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="welcome">BIENVENUE CHEZ <i style="color: aqua;">YAMBILLET</i>. NOUS SOMMES A VOTRE SERVICES</h1>
+    <!-- Bulles animées en arrière-plan -->
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+
+    <!-- Conteneur principal -->
+    <div class="container" id="connexionContainer">
+        <h2>Connexion Agence</h2>
+        <form id="loginForm" action="traitementConnexion.php" method="POST">
+            <div class="input-group">
+                <label for="email">Adresse Email</label>
+                <input type="email" name="email" id="email" placeholder="exemple@domaine.com" required>
+            </div>
+            <div class="input-group">
+                <label for="password">Mot de Passe</label>
+                <input type="password" name="password" id="password" placeholder="Entrez votre mot de passe" required>
+            </div>
+            <button type="submit" class="btn">Se connecter</button>
+        </form>
+        <a href="#" class="link" onclick="showForgotPassword()">Mot de passe oublié ?</a>
+        <div id="errorMessage" class="error"></div>
+    </div>
+
+    <!-- Conteneur de récupération de mot de passe -->
+    <div class="container" id="forgotPasswordContainer" style="display: none;">
+        <h2>Mot de Passe Oublié</h2>
+        <form id="forgotPasswordForm" action="traitementMotDePasse.php" method="POST">
+            <div class="input-group">
+                <label for="resetEmail">Adresse Email</label>
+                <input type="email" name="email" id="resetEmail" placeholder="Entrez votre email" required>
+            </div>
+            <button type="submit" class="btn">Envoyer un lien de réinitialisation</button>
+        </form>
+        <a href="#" class="link" onclick="showLogin()">Retour à la connexion</a>
+    </div>
+
+    <script>
+        // Afficher le formulaire de récupération de mot de passe
+        function showForgotPassword() {
+            document.getElementById('connexionContainer').style.display = 'none';
+            document.getElementById('forgotPasswordContainer').style.display = 'block';
+        }
+
+        // Retourner au formulaire de connexion
+        function showLogin() {
+            document.getElementById('forgotPasswordContainer').style.display = 'none';
+            document.getElementById('connexionContainer').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
